@@ -82,6 +82,7 @@ function LoginScreen(props) {
               }}
             ></View>
           </View>
+
           <View style={{ top: RFPercentage(11) }}>
             <InputField
               placeholder="Username / e-mail"
