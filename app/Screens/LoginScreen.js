@@ -6,6 +6,7 @@ import { RFPercentage } from "react-native-responsive-fontsize";
 import InputField from "../components/InputField";
 import MyAppButton from "../components/MyAppButton";
 import SocialLinksButtons from "../components/SocialLinksButtons";
+
 //config
 import Colors from "../config/Colors";
 
@@ -136,7 +137,7 @@ function LoginScreen(props) {
             ))}
           </View>
 
-          <View style={{ top: RFPercentage(11.5) }}>
+          <View style={{ top: RFPercentage(12.1) }}>
             <MyAppButton
               title="Log in"
               onPress={() => props.navigation.navigate("SignupForm")}

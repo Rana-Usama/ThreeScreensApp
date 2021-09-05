@@ -5,6 +5,8 @@ import { Ionicons } from "@expo/vector-icons";
 
 //config
 import Colors from "../config/Colors";
+
+//components
 import InputField from "../components/InputField";
 import MyAppButton from "./../components/MyAppButton";
 
@@ -31,7 +33,7 @@ function SignupForm(props) {
     },
     {
       placeholder: "Password",
-
+      secure: true,
       value: "",
     },
     {
@@ -42,10 +44,14 @@ function SignupForm(props) {
   ]);
 
   const handleChange = (text, i) => {
-    // if (i === 1 && text.length >= 7) {
-    //   alert("Password should be less then 7 digits");
-    //   return;
-    // }
+    if (i === 0 && text.length >= 10) {
+      alert("Username should be less then 10 digits");
+      return;
+    }
+    if (i === 4 && text.length >= 7) {
+      alert("Username should be less then 7 digits");
+      return;
+    }
     let tempfeilds = [...inputField];
     tempfeilds[i].value = text;
     SetInputField(tempfeilds);
@@ -71,7 +77,7 @@ function SignupForm(props) {
       >
         <Ionicons
           name="arrow-back"
-          size={35}
+          size={40}
           color={Colors.backIcon}
           style={{ fontSize: RFPercentage(3), fontWeight: "bold" }}
         />
@@ -115,13 +121,13 @@ function SignupForm(props) {
           flexDirection: "row",
         }}
       >
-        <Text style={{ left: RFPercentage(2), fontSize: RFPercentage(1.6) }}>
+        <Text style={{ fontSize: RFPercentage(1.6) }}>
           By signing up you accept our
         </Text>
         <Text
           style={{
             color: Colors.signUpText,
-            left: RFPercentage(2.5),
+            left: RFPercentage(1),
             fontSize: RFPercentage(1.6),
           }}
         >

@@ -3,9 +3,8 @@ import { Text, View, StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 //components
-import InputField from "../components/InputField";
-import MyAppButton from "../components/MyAppButton";
 import SocialLinksButtons from "../components/SocialLinksButtons";
+
 //config
 import Colors from "../config/Colors";
 
