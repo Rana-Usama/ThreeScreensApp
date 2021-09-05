@@ -19,9 +19,10 @@ function InputField({ placeholder, width }) {
       <TextInput
         placeholder={placeholder}
         style={{
-          color: Colors.white,
+          color: "black",
           left: RFPercentage(5),
           fontSize: RFPercentage(2.5),
+          width: "100%",
         }}
       ></TextInput>
     </View>

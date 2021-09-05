@@ -1,8 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
+
+//components
 import InputField from "../components/InputField";
+import MyAppButton from "../components/MyAppButton";
 import SocialLinksButtons from "../components/SocialLinksButtons";
+//config
 import Colors from "../config/Colors";
 
 function LoginScreen(props) {
@@ -48,10 +52,10 @@ function LoginScreen(props) {
           <SocialLinksButtons
             iconName="google"
             iconColor="black"
-            iconSize={17}
+            iconSize={15}
             title="Log in with Google"
             titleColor="black"
-            onPress={() => console.log("Google link pressed")}
+            onPress={() => console.log("Log in with Facebook")}
             backgroundColor={Colors.white}
             borderColor={Colors.lightgrey}
             borderWidth={RFPercentage(0.2)}
@@ -83,7 +87,7 @@ function LoginScreen(props) {
             ></View>
           </View>
 
-          <View style={{ top: RFPercentage(11) }}>
+          <View style={{ top: RFPercentage(10) }}>
             <InputField
               placeholder="Username / e-mail"
               width={RFPercentage(40)}
@@ -92,6 +96,26 @@ function LoginScreen(props) {
               placeholder="Password"
               width={RFPercentage(40)}
             ></InputField>
+          </View>
+
+          <View style={{ top: RFPercentage(11.5) }}>
+            <MyAppButton
+              title="Log in"
+              onPress={() => console.log("Login Pressed")}
+              backgroundColor={Colors.loginButton}
+              width={RFPercentage(26)}
+              color={Colors.white}
+            />
+            <Text
+              onPress={() => console.log("Forgot Password Pressed")}
+              style={{
+                fontSize: RFPercentage(2.5),
+                left: RFPercentage(18),
+                top: RFPercentage(1.5),
+              }}
+            >
+              Forgot Password
+            </Text>
           </View>
         </View>
       </View>
@@ -117,8 +141,8 @@ const styles = StyleSheet.create({
   whiteArea: {
     backgroundColor: "#fff",
     flex: 1,
-    borderTopRightRadius: RFPercentage(12),
-    borderTopLeftRadius: RFPercentage(12),
+    borderTopRightRadius: RFPercentage(15),
+    borderTopLeftRadius: RFPercentage(15),
     alignItems: "center",
   },
 });

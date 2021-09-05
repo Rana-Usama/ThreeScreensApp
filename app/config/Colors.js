@@ -5,4 +5,5 @@ export default {
   fbColor: "#2d509b",
   lightgrey: "#808080",
   inputFields: "#efefef",
+  loginButton: "#d118b5",
 };

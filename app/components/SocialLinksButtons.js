@@ -29,7 +29,7 @@ function SocialLinksButtons({
         marginVertical: RFPercentage(1),
         borderRadius: RFPercentage(20),
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
         borderColor: borderColor,
         borderWidth: borderWidth,
       }}
@@ -38,13 +38,13 @@ function SocialLinksButtons({
         name={iconName}
         size={iconSize}
         color={iconColor}
-        style={{ marginHorizontal: RFPercentage(1) }}
+        style={{ left: RFPercentage(6) }}
       />
       <Text
         style={{
           color: titleColor,
-          left: RFPercentage(1),
           fontSize: RFPercentage(2.5),
+          marginLeft: RFPercentage(9),
         }}
       >
         {title}
