@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
@@ -10,6 +10,46 @@ import SocialLinksButtons from "../components/SocialLinksButtons";
 import Colors from "../config/Colors";
 
 function LoginScreen(props) {
+  const [socialLinks, setSocailLinks] = useState([
+    {
+      title: "Log in with Facebook",
+      icon: "facebook-f",
+      value: "",
+    },
+    {
+      title: "Log in with Google",
+      icon: "google",
+      backgroundWhite: true,
+      titleBlack: true,
+      borderColor: true,
+      borderWidth: true,
+      iconBlack: true,
+      value: "",
+    },
+  ]);
+
+  const [inputField, SetInputField] = useState([
+    {
+      placeholder: "Username / e-mail",
+      value: "",
+    },
+    {
+      placeholder: "Password",
+      secure: true,
+      value: "",
+    },
+  ]);
+
+  const handleChange = (text, i) => {
+    if (i === 1 && text.length >= 7) {
+      alert("Password should be less then 7 digits");
+      return;
+    }
+    let tempfeilds = [...inputField];
+    tempfeilds[i].value = text;
+    SetInputField(tempfeilds);
+  };
+
   return (
     <>
       <View style={styles.logoContainer}>
@@ -27,7 +67,7 @@ function LoginScreen(props) {
               Not a member?
             </Text>
             <Text
-              onPress={() => console.log("Pressed")}
+              onPress={() => props.navigation.navigate("SignupScreen")}
               style={{
                 top: RFPercentage(4),
                 fontSize: RFPercentage(2.5),
@@ -40,26 +80,22 @@ function LoginScreen(props) {
             </Text>
           </View>
 
-          <SocialLinksButtons
-            iconName="facebook-f"
-            iconColor={Colors.white}
-            iconSize={15}
-            title="Log in with Facebook"
-            titleColor={Colors.white}
-            onPress={() => console.log("FB link pressed")}
-            backgroundColor={Colors.fbColor}
-          />
-          <SocialLinksButtons
-            iconName="google"
-            iconColor="black"
-            iconSize={15}
-            title="Log in with Google"
-            titleColor="black"
-            onPress={() => console.log("Log in with Facebook")}
-            backgroundColor={Colors.white}
-            borderColor={Colors.lightgrey}
-            borderWidth={RFPercentage(0.2)}
-          />
+          {socialLinks.map((item, i) => (
+            <SocialLinksButtons
+              key={i}
+              iconName={item.icon}
+              iconColor={item.iconBlack ? "black" : Colors.white}
+              iconSize={15}
+              title={item.title}
+              titleColor={item.titleBlack ? "black" : Colors.white}
+              //  onPress={() => console.log("FB link pressed")}
+              borderColor={item.borderColor ? Colors.lightgrey : "none"}
+              borderWidth={item.borderWidth ? RFPercentage(0.2) : "none"}
+              backgroundColor={
+                item.backgroundWhite ? Colors.white : Colors.fbColor
+              }
+            />
+          ))}
 
           <View
             style={{
@@ -88,20 +124,22 @@ function LoginScreen(props) {
           </View>
 
           <View style={{ top: RFPercentage(10) }}>
-            <InputField
-              placeholder="Username / e-mail"
-              width={RFPercentage(40)}
-            ></InputField>
-            <InputField
-              placeholder="Password"
-              width={RFPercentage(40)}
-            ></InputField>
+            {inputField.map((item, i) => (
+              <InputField
+                key={i}
+                secureTextEntry={item.secure}
+                placeholder={item.placeholder}
+                handleFeild={(text) => handleChange(text, i)}
+                value={item.value}
+                width={RFPercentage(40)}
+              />
+            ))}
           </View>
 
           <View style={{ top: RFPercentage(11.5) }}>
             <MyAppButton
               title="Log in"
-              onPress={() => console.log("Login Pressed")}
+              onPress={() => props.navigation.navigate("SignupForm")}
               backgroundColor={Colors.loginButton}
               width={RFPercentage(26)}
               color={Colors.white}

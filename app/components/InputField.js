@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, TextInput } from "react-native";
-import Colors from "../config/Colors";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-function InputField({ placeholder, width }) {
+//config
+import Colors from "../config/Colors";
+
+function InputField({ placeholder, handleFeild, width, value, ...otherProps }) {
   return (
     <View
       style={{
@@ -18,12 +20,15 @@ function InputField({ placeholder, width }) {
     >
       <TextInput
         placeholder={placeholder}
+        onChangeText={(text) => handleFeild(text)}
+        value={value}
         style={{
           color: "black",
           left: RFPercentage(5),
           fontSize: RFPercentage(2.5),
           width: "100%",
         }}
+        {...otherProps}
       ></TextInput>
     </View>
   );

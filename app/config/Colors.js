@@ -6,4 +6,7 @@ export default {
   lightgrey: "#808080",
   inputFields: "#efefef",
   loginButton: "#d118b5",
+  signupBanner: "#ae479b",
+  backIcon: "#1dbdbd",
+  doneButton: "#a1479b",
 };
