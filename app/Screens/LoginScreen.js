@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Platform, Text, View, StyleSheet, ImageBackground, Dimensions, ScrollView, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import {
+  Platform,
+  Text,
+  View,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+  ScrollView,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+} from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 //components
@@ -12,13 +22,13 @@ import LoadingModal from "../components/common/LoadingModal";
 import Colors from "../config/Colors";
 
 // images
-import logoBack from "../../assets/images/logoBack.jpg"
+import logoBack from "../../assets/images/logoBack.jpg";
 
-const { width } = Dimensions.get('window')
+const { width } = Dimensions.get("window");
 
 function LoginScreen(props) {
-  const [indicator, showIndicator] = useState(false)
-  const [feildMarginBottom, setFeildMarginBottom] = useState(0)
+  const [indicator, showIndicator] = useState(false);
+  const [feildMarginBottom, setFeildMarginBottom] = useState(0);
   const socialLinks = [
     {
       title: "Log in with Facebook",
@@ -59,54 +69,65 @@ function LoginScreen(props) {
   };
 
   const handleLogin = () => {
-    showIndicator(true)
+    showIndicator(true);
     let tempfeilds = [...inputField];
 
-    if (tempfeilds[0].value === '' || tempfeilds[1].value === '') {
-      alert('Please fill all the feilds')
-      showIndicator(false)
+    if (tempfeilds[0].value === "" || tempfeilds[1].value === "") {
+      alert("Please fill all the feilds");
+      showIndicator(false);
       return true;
     }
 
     //password must contain 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter
     var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     if (!tempfeilds[1].value.match(passw)) {
-      alert('Week password try another one!')
-      showIndicator(false)
+      alert("Week password try another one!");
+      showIndicator(false);
       return true;
     }
 
     try {
       // API integration
     } catch (error) {
-      alert("Login Error")
+      alert("Login Error");
     }
 
-    showIndicator(false)
-  }
+    showIndicator(false);
+  };
 
   return (
     <>
-      <LoadingModal show={indicator} />
-      <ImageBackground source={logoBack} width={width} height={RFPercentage(50)} style={styles.logoContainer}>
-        <Text style={styles.logo}>Logo</Text>
-      </ImageBackground>
-
-      <ScrollView style={{ backgroundColor: Colors.white, flex: 1, }} >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={{ flex: 1 }}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <LoadingModal show={indicator} />
+        <ImageBackground
+          source={logoBack}
+          width={width}
+          height={RFPercentage(40)}
+          style={styles.logoContainer}
         >
+          <Text style={styles.logo}>Logo</Text>
+        </ImageBackground>
 
+        <ScrollView style={{ backgroundColor: Colors.white, flex: 1 }}>
           <View style={[styles.whiteArea]}>
             {/* Not a member */}
-            <View style={{ flexDirection: "row", }}>
-              <Text style={{ fontSize: RFPercentage(2.5) }}>
-                Not a member?
-              </Text>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={{ fontSize: RFPercentage(2.5) }}>Not a member?</Text>
 
-              <TouchableOpacity onPress={() => props.navigation.navigate("SignupScreen")} >
-                <Text style={{ fontSize: RFPercentage(2.5), marginLeft: RFPercentage(1), color: Colors.signUpText, fontWeight: "bold", }}>
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate("SignupScreen")}
+              >
+                <Text
+                  style={{
+                    fontSize: RFPercentage(2.5),
+                    marginLeft: RFPercentage(1),
+                    color: Colors.signUpText,
+                    fontWeight: "bold",
+                  }}
+                >
                   Sign up now
                 </Text>
               </TouchableOpacity>
@@ -114,7 +135,12 @@ function LoginScreen(props) {
 
             {/* social buttons */}
             {socialLinks.map((item, i) => (
-              <View key={i} style={{ marginTop: i === 0 ? RFPercentage(4) : RFPercentage(0.3) }} >
+              <View
+                key={i}
+                style={{
+                  marginTop: i === 0 ? RFPercentage(4) : RFPercentage(0.3),
+                }}
+              >
                 <SocialLinksButtons
                   iconName={item.icon}
                   iconColor={item.iconColor}
@@ -129,12 +155,29 @@ function LoginScreen(props) {
             ))}
 
             {/* border */}
-            <View style={{ flexDirection: "row", marginTop: RFPercentage(2), justifyContent: "center", alignItems: 'center' }}>
-              <View style={{ backgroundColor: Colors.lightgrey2, height: RFPercentage(0.1), width: RFPercentage(10) }}></View>
-              <Text style={{ color: Colors.lightgrey }}>
-                {" "}OR{" "}
-              </Text>
-              <View style={{ backgroundColor: Colors.lightgrey2, height: RFPercentage(0.1), width: RFPercentage(10), }} ></View>
+            <View
+              style={{
+                flexDirection: "row",
+                marginTop: RFPercentage(2),
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: Colors.lightgrey2,
+                  height: RFPercentage(0.1),
+                  width: RFPercentage(10),
+                }}
+              ></View>
+              <Text style={{ color: Colors.lightgrey }}> OR </Text>
+              <View
+                style={{
+                  backgroundColor: Colors.lightgrey2,
+                  height: RFPercentage(0.1),
+                  width: RFPercentage(10),
+                }}
+              ></View>
             </View>
 
             {/* email and password feilds */}
@@ -154,7 +197,17 @@ function LoginScreen(props) {
             </View>
 
             {/* login and forgot */}
-            <View style={{ flexDirection: "column", marginTop: RFPercentage(2.1), marginBottom: RFPercentage(2), width: "100%", justifyContent: "center", alignItems: "center", flex: 1 }}>
+            <View
+              style={{
+                flexDirection: "column",
+                marginTop: RFPercentage(2.1),
+                marginBottom: RFPercentage(2),
+                width: "100%",
+                justifyContent: "center",
+                alignItems: "center",
+                flex: 1,
+              }}
+            >
               <MyAppButton
                 title="Log in"
                 onPress={() => handleLogin()}
@@ -162,15 +215,27 @@ function LoginScreen(props) {
                 width={RFPercentage(26)}
                 color={Colors.white}
               />
-              <TouchableOpacity onPress={() => console.log("forgot password")} style={{ alignSelf: "flex-end", marginRight: RFPercentage(3), marginTop: RFPercentage(1.5) }}>
-                <Text style={{ color: Colors.lightgrey, fontSize: RFPercentage(2.3), }} >
+              <TouchableOpacity
+                onPress={() => console.log("forgot password")}
+                style={{
+                  alignSelf: "flex-end",
+                  marginRight: RFPercentage(3),
+                  marginTop: RFPercentage(1.5),
+                }}
+              >
+                <Text
+                  style={{
+                    color: Colors.lightgrey,
+                    fontSize: RFPercentage(2.3),
+                  }}
+                >
                   Forgot Password
                 </Text>
               </TouchableOpacity>
             </View>
           </View>
-        </KeyboardAvoidingView>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 }
@@ -178,15 +243,15 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
   logoContainer: {
     width: "100%",
-    height: RFPercentage(40),
+    height: RFPercentage(46),
     width: width,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   logo: {
     fontSize: RFPercentage(5.5),
     color: Colors.white,
-    marginTop: RFPercentage(2)
+    marginTop: RFPercentage(2),
   },
   whiteArea: {
     backgroundColor: Colors.white,
@@ -195,7 +260,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: RFPercentage(30),
     borderTopLeftRadius: RFPercentage(30),
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
 });
 
