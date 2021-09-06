@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons"
 //config
 import Colors from "../../config/Colors";
 
-function InputField({ placeholder, handleFeild, width, value, secure = false, ...otherProps }) {
+function InputField({ onTouchStart = () => { }, onTouchEnd = () => { }, placeholder, handleFeild, width, value, secure = false, ...otherProps }) {
   const [eyeIcon, setEyeIcon] = useState(false)
 
   return (
@@ -24,6 +24,8 @@ function InputField({ placeholder, handleFeild, width, value, secure = false, ..
       <TextInput
         placeholder={placeholder}
         onChangeText={(text) => handleFeild(text)}
+        onResponderStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
         value={value}
         secureTextEntry={secure && !eyeIcon}
         style={{ color: "black", left: RFPercentage(5), fontSize: RFPercentage(2.5), width: secure ? "90%" : "100%" }}
