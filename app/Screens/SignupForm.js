@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
+  KeyboardAvoidingView
 } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { Ionicons } from "@expo/vector-icons";
@@ -119,74 +121,79 @@ function SignupForm(props) {
 
   return (
     <>
-      <ScrollView style={{ backgroundColor: Colors.white, flex: 1 }}>
-        <View style={styles.mainContainer}>
-          <LoadingModal show={indicator} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
+        <ScrollView style={{ backgroundColor: Colors.white, flex: 1 }}>
+          <View style={styles.mainContainer}>
+            <LoadingModal show={indicator} />
 
-          <View style={styles.navigationContainer}>
-            <Ionicons
-              name="arrow-back"
-              size={40}
-              color={Colors.backIcon}
-              style={{ fontSize: RFPercentage(3), fontWeight: "bold" }}
-              onPress={() => props.navigation.navigate("SignupScreen")}
-            />
-            <Text
-              style={{
-                fontSize: RFPercentage(3),
-                left: RFPercentage(3),
-                fontWeight: "bold",
-              }}
-            >
-              Sign up
-            </Text>
-          </View>
+            <View style={styles.navigationContainer}>
+              <Ionicons
+                name="arrow-back"
+                size={40}
+                color={Colors.backIcon}
+                style={{ fontSize: RFPercentage(3), fontWeight: "bold" }}
+                onPress={() => props.navigation.navigate("SignupScreen")}
+              />
+              <Text
+                style={{
+                  fontSize: RFPercentage(3),
+                  left: RFPercentage(3),
+                  fontWeight: "bold",
+                }}
+              >
+                Sign up
+              </Text>
+            </View>
 
-          <View style={{ bottom: RFPercentage(6), alignItems: "center" }}>
-            {inputField.map((item, i) => (
-              <InputField
-                key={i}
-                secure={item.secure}
-                keyboardType={item.type}
-                placeholder={item.placeholder}
-                handleFeild={(text) => handleChange(text, i)}
-                value={item.value}
-                width={"85%"}
-              />
-            ))}
-            <View style={{ top: RFPercentage(4), width: "100%" }}>
-              <MyAppButton
-                title="Done"
-                onPress={() => handleSigUp()}
-                backgroundColor={Colors.primary}
-                width={RFPercentage(40)}
-                color={Colors.white}
-              />
+            <View style={{ bottom: RFPercentage(6), alignItems: "center" }}>
+              {inputField.map((item, i) => (
+                <InputField
+                  key={i}
+                  secure={item.secure}
+                  keyboardType={item.type}
+                  placeholder={item.placeholder}
+                  handleFeild={(text) => handleChange(text, i)}
+                  value={item.value}
+                  width={"85%"}
+                />
+              ))}
+              <View style={{ top: RFPercentage(4), width: "100%" }}>
+                <MyAppButton
+                  title="Done"
+                  onPress={() => handleSigUp()}
+                  backgroundColor={Colors.primary}
+                  width={RFPercentage(40)}
+                  color={Colors.white}
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
 
-      {/* terms and conditions*/}
-      <View style={styles.tremsContainer}>
-        <Text style={{ fontSize: RFPercentage(1.4) }}>
-          By signing up you accept our
-        </Text>
-        <TouchableOpacity
-          onPress={() => Linking.openURL("https://www.wikipedia.org/")}
-        >
-          <Text
-            style={{
-              marginLeft: RFPercentage(0.5),
-              fontWeight: "bold",
-              color: Colors.signUpText,
-              fontSize: RFPercentage(1.6),
-            }}
-          >
-            terms of service and privacy policy
+        {/* terms and conditions*/}
+        <View style={styles.tremsContainer}>
+          <Text style={{ fontSize: RFPercentage(1.4) }}>
+            By signing up you accept our
           </Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => Linking.openURL("https://www.wikipedia.org/")}
+          >
+            <Text
+              style={{
+                marginLeft: RFPercentage(0.5),
+                fontWeight: "bold",
+                color: Colors.signUpText,
+                fontSize: RFPercentage(1.6),
+              }}
+            >
+              terms of service and privacy policy
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
