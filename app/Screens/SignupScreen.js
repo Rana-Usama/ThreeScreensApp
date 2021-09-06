@@ -35,7 +35,7 @@ function SignupScreen(props) {
 
   return (
     <>
-      <ImageBackground source={logoBack} width={width} height={RFPercentage(40)} style={styles.logoContainer}>
+      <ImageBackground source={logoBack} width={width} height={RFPercentage(50)} style={styles.logoContainer}>
         <Text style={styles.logo}>Logo</Text>
       </ImageBackground>
 
