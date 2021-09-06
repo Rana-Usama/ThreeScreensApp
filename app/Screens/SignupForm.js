@@ -49,7 +49,7 @@ function SignupForm(props) {
       return;
     }
     if (i === 4 && text.length >= 7) {
-      alert("Username should be less then 7 digits");
+      alert("Password should be less then 7 digits");
       return;
     }
     let tempfeilds = [...inputField];
