@@ -1,50 +1,48 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Image, Text, TouchableOpacity } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import { FontAwesome } from "@expo/vector-icons";
 
 //config
 import Colors from "../config/Colors";
 
-function SocialLinksButtons({
-  onPress,
-  iconName,
-  title,
-  backgroundColor,
-  borderColor,
-  borderWidth,
-  titleColor,
-  iconColor,
-  iconSize,
-}) {
+// google img
+import googleLogo from "../../assets/images/googleLogo.png"
+
+function SocialLinksButtons({ onPress = () => { }, iconName, title, backgroundColor = Colors.white, borderColor = null, borderWidth = 0, titleColor, iconColor, iconSize = RFPercentage(2.2) }) {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
         flexDirection: "row",
         backgroundColor: backgroundColor,
-        width: RFPercentage(40),
-        height: RFPercentage(7),
-        top: RFPercentage(7),
+        width: RFPercentage(37),
+        height: RFPercentage(6.5),
         marginVertical: RFPercentage(1),
         borderRadius: RFPercentage(20),
         alignItems: "center",
-        // justifyContent: "center",
+        justifyContent: "center",
         borderColor: borderColor,
         borderWidth: borderWidth,
       }}
     >
-      <FontAwesome
-        name={iconName}
-        size={iconSize}
-        color={iconColor}
-        style={{ left: RFPercentage(6) }}
-      />
+      {
+        iconName === "google" ?
+          <Image
+            source={googleLogo}
+            style={{ marginRight: RFPercentage(3), width: iconSize, height: iconSize }}
+          /> : <FontAwesome
+            name={iconName}
+            size={iconSize}
+            color={iconColor}
+            style={{ marginRight: RFPercentage(3) }}
+          />
+      }
+
       <Text
         style={{
           color: titleColor,
           fontSize: RFPercentage(2.5),
-          marginLeft: RFPercentage(9),
         }}
       >
         {title}

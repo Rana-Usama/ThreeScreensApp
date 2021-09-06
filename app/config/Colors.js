@@ -1,9 +1,12 @@
 export default {
-  primary: "#c23395",
+  primary: "#d118a6",
   white: "#ffffff",
+  black: "black",
   signUpText: "#2d8e8e",
   fbColor: "#2d509b",
   lightgrey: "#808080",
+  lightgrey2: "#ededed",
+  lightgrey3: "#f7f7f7",
   inputFields: "#efefef",
   loginButton: "#d118b5",
   signupBanner: "#ae479b",
