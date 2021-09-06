@@ -2,9 +2,10 @@ import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
-function MyAppButton({ title, onPress, backgroundColor, width, color }) {
+function MyAppButton({ title, onPress, backgroundColor, width = "100%", color }) {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={{
         backgroundColor: backgroundColor,
         width: width,
@@ -21,7 +22,6 @@ function MyAppButton({ title, onPress, backgroundColor, width, color }) {
           color: color,
           fontWeight: "bold",
         }}
-        onPress={onPress}
       >
         {title}
       </Text>

@@ -1,33 +1,43 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Dimensions, ScrollView, TouchableOpacity } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 
 //components
-import InputField from "../components/InputField";
-import MyAppButton from "../components/MyAppButton";
+import InputField from "../components/common/InputField";
+import MyAppButton from "../components/common/MyAppButton";
 import SocialLinksButtons from "../components/SocialLinksButtons";
+import LoadingModal from "../components/common/LoadingModal";
 
 //config
 import Colors from "../config/Colors";
 
+// images
+import logoBack from "../../assets/images/logoBack.jpg"
+
+const { width } = Dimensions.get('window')
+
 function LoginScreen(props) {
-  const [socialLinks, setSocailLinks] = useState([
+  const [indicator, showIndicator] = useState(false)
+  const socialLinks = [
     {
       title: "Log in with Facebook",
       icon: "facebook-f",
       value: "",
+      iconColor: "white",
+      backgroundColor: Colors.fbColor,
+      titleColor: Colors.white,
+      iconColor: Colors.white,
     },
     {
       title: "Log in with Google",
-      icon: "google",
-      backgroundWhite: true,
-      titleBlack: true,
-      borderColor: true,
-      borderWidth: true,
-      iconBlack: true,
       value: "",
+      icon: "google",
+      titleColor: Colors.black,
+      borderColor: Colors.lightgrey2,
+      borderWidth: RFPercentage(0.1),
+      iconColor: Colors.black,
     },
-  ]);
+  ];
 
   const [inputField, SetInputField] = useState([
     {
@@ -42,93 +52,92 @@ function LoginScreen(props) {
   ]);
 
   const handleChange = (text, i) => {
-    if (i === 1 && text.length >= 7) {
-      alert("Password should be less then 7 digits");
-      return;
-    }
     let tempfeilds = [...inputField];
     tempfeilds[i].value = text;
     SetInputField(tempfeilds);
   };
 
+  const handleLogin = () => {
+    showIndicator(true)
+    let tempfeilds = [...inputField];
+
+    if (tempfeilds[0].value === '' || tempfeilds[1].value === '') {
+      alert('Please fill all the feilds')
+      showIndicator(false)
+      return true;
+    }
+
+    //password must contain 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter
+    var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    if (!tempfeilds[1].value.match(passw)) {
+      alert('Week password try another one!')
+      showIndicator(false)
+      return true;
+    }
+
+    try {
+      // API integration
+    } catch (error) {
+      alert("Login Error")
+    }
+
+    showIndicator(false)
+  }
+
   return (
     <>
-      <View style={styles.logoContainer}>
+      <LoadingModal show={indicator} />
+      <ImageBackground source={logoBack} width={width} height={RFPercentage(40)} style={styles.logoContainer}>
         <Text style={styles.logo}>Logo</Text>
-      </View>
+      </ImageBackground>
 
-      <View style={styles.subContainer}>
+      <ScrollView style={{ backgroundColor: Colors.white, flex: 1 }} >
         <View style={styles.whiteArea}>
-          <View
-            style={{
-              flexDirection: "row",
-            }}
-          >
-            <Text style={{ top: RFPercentage(4), fontSize: RFPercentage(2.5) }}>
+
+          {/* Not a member */}
+          <View style={{ flexDirection: "row", }}>
+            <Text style={{ fontSize: RFPercentage(2.5) }}>
               Not a member?
             </Text>
-            <Text
-              onPress={() => props.navigation.navigate("SignupScreen")}
-              style={{
-                top: RFPercentage(4),
-                fontSize: RFPercentage(2.5),
-                left: RFPercentage(1),
-                color: Colors.signUpText,
-                fontWeight: "bold",
-              }}
-            >
-              Sign up now
-            </Text>
+
+            <TouchableOpacity onPress={() => props.navigation.navigate("SignupScreen")} >
+              <Text style={{ fontSize: RFPercentage(2.5), marginLeft: RFPercentage(1), color: Colors.signUpText, fontWeight: "bold", }}>
+                Sign up now
+              </Text>
+            </TouchableOpacity>
           </View>
 
+          {/* social buttons */}
           {socialLinks.map((item, i) => (
-            <SocialLinksButtons
-              key={i}
-              iconName={item.icon}
-              iconColor={item.iconBlack ? "black" : Colors.white}
-              iconSize={15}
-              title={item.title}
-              titleColor={item.titleBlack ? "black" : Colors.white}
-              //  onPress={() => console.log("FB link pressed")}
-              borderColor={item.borderColor ? Colors.lightgrey : "none"}
-              borderWidth={item.borderWidth ? RFPercentage(0.2) : "none"}
-              backgroundColor={
-                item.backgroundWhite ? Colors.white : Colors.fbColor
-              }
-            />
+            <View key={i} style={{ marginTop: i === 0 ? RFPercentage(4) : RFPercentage(0.3) }} >
+              <SocialLinksButtons
+                iconName={item.icon}
+                iconColor={item.iconColor}
+                title={item.title}
+                titleColor={item.titleColor}
+                onPress={() => console.log("FB link pressed")}
+                borderColor={item.borderColor}
+                borderWidth={item.borderWidth}
+                backgroundColor={item.backgroundColor}
+              />
+            </View>
           ))}
 
-          <View
-            style={{
-              flexDirection: "row",
-              top: RFPercentage(10),
-            }}
-          >
-            <View
-              style={{
-                backgroundColor: Colors.lightgrey,
-                height: RFPercentage(0.3),
-                width: RFPercentage(10),
-              }}
-            ></View>
-            <Text style={{ bottom: RFPercentage(1), color: Colors.lightgrey }}>
-              {" "}
-              OR{" "}
+          {/* border */}
+          <View style={{ flexDirection: "row", marginTop: RFPercentage(2), justifyContent: "center", alignItems: 'center' }}>
+            <View style={{ backgroundColor: Colors.lightgrey2, height: RFPercentage(0.1), width: RFPercentage(10) }}></View>
+            <Text style={{ color: Colors.lightgrey }}>
+              {" "}OR{" "}
             </Text>
-            <View
-              style={{
-                backgroundColor: Colors.lightgrey,
-                height: RFPercentage(0.3),
-                width: RFPercentage(10),
-              }}
-            ></View>
+            <View style={{ backgroundColor: Colors.lightgrey2, height: RFPercentage(0.1), width: RFPercentage(10), }} ></View>
           </View>
 
-          <View style={{ top: RFPercentage(10) }}>
+          {/* email and password feilds */}
+          <View style={{ marginTop: RFPercentage(2) }}>
             {inputField.map((item, i) => (
               <InputField
                 key={i}
-                secureTextEntry={item.secure}
+                secure={item.secure}
                 placeholder={item.placeholder}
                 handleFeild={(text) => handleChange(text, i)}
                 value={item.value}
@@ -137,52 +146,48 @@ function LoginScreen(props) {
             ))}
           </View>
 
-          <View style={{ top: RFPercentage(12.1) }}>
+          {/* login and forgot */}
+          <View style={{ flexDirection: "column", marginTop: RFPercentage(2.1), marginBottom: RFPercentage(2), width: "100%", justifyContent: "center", alignItems: "center", flex: 1 }}>
             <MyAppButton
               title="Log in"
-              onPress={() => props.navigation.navigate("SignupForm")}
+              onPress={() => handleLogin()}
               backgroundColor={Colors.loginButton}
               width={RFPercentage(26)}
               color={Colors.white}
             />
-            <Text
-              onPress={() => console.log("Forgot Password Pressed")}
-              style={{
-                fontSize: RFPercentage(2.5),
-                left: RFPercentage(18),
-                top: RFPercentage(1.5),
-              }}
-            >
-              Forgot Password
-            </Text>
+            <TouchableOpacity onPress={() => console.log("forgot password")} style={{ alignSelf: "flex-end", marginRight: RFPercentage(3), marginTop: RFPercentage(1.5) }}>
+              <Text style={{ color: Colors.lightgrey, fontSize: RFPercentage(2.3), }} >
+                Forgot Password
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   logoContainer: {
-    backgroundColor: Colors.primary,
-    flex: 1,
+    width: "100%",
+    height: RFPercentage(40),
+    width: width,
     alignItems: "center",
+    justifyContent: "center"
   },
   logo: {
-    top: RFPercentage(15),
-    fontSize: RFPercentage(4.5),
+    fontSize: RFPercentage(5.5),
     color: Colors.white,
-  },
-  subContainer: {
-    backgroundColor: Colors.primary,
-    height: RFPercentage(65),
+    marginTop: RFPercentage(2)
   },
   whiteArea: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     flex: 1,
-    borderTopRightRadius: RFPercentage(15),
-    borderTopLeftRadius: RFPercentage(15),
+    width: width,
+    borderTopRightRadius: RFPercentage(30),
+    borderTopLeftRadius: RFPercentage(30),
     alignItems: "center",
+    justifyContent: 'center'
   },
 });
 
