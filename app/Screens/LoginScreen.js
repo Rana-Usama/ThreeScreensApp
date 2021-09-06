@@ -113,21 +113,12 @@ function LoginScreen(props) {
 
         <ScrollView style={{ backgroundColor: Colors.white, flex: 1 }}>
           <View style={[styles.whiteArea]}>
+
             {/* Not a member */}
             <View style={{ flexDirection: "row" }}>
               <Text style={{ fontSize: RFPercentage(2.5) }}>Not a member?</Text>
-
-              <TouchableOpacity
-                onPress={() => props.navigation.navigate("SignupScreen")}
-              >
-                <Text
-                  style={{
-                    fontSize: RFPercentage(2.5),
-                    marginLeft: RFPercentage(1),
-                    color: Colors.signUpText,
-                    fontWeight: "bold",
-                  }}
-                >
+              <TouchableOpacity onPress={() => props.navigation.navigate("SignupScreen")} >
+                <Text style={{ fontSize: RFPercentage(2.5), marginLeft: RFPercentage(1), color: Colors.signUpText, fontWeight: "bold", }}>
                   Sign up now
                 </Text>
               </TouchableOpacity>
@@ -135,12 +126,7 @@ function LoginScreen(props) {
 
             {/* social buttons */}
             {socialLinks.map((item, i) => (
-              <View
-                key={i}
-                style={{
-                  marginTop: i === 0 ? RFPercentage(4) : RFPercentage(0.3),
-                }}
-              >
+              <View key={i} style={{ marginTop: i === 0 ? RFPercentage(4) : RFPercentage(0.3), }}>
                 <SocialLinksButtons
                   iconName={item.icon}
                   iconColor={item.iconColor}
@@ -243,7 +229,7 @@ function LoginScreen(props) {
 const styles = StyleSheet.create({
   logoContainer: {
     width: "100%",
-    height: RFPercentage(46),
+    height: RFPercentage(40),
     width: width,
     alignItems: "center",
     justifyContent: "center",
